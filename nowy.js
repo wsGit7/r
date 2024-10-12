@@ -20,7 +20,7 @@ document.getElementById('myfile').addEventListener('change', function() {
       // document.getElementById('output3').innerHTML= basia;
       // document.getElementById('output').value= Zosia[i];
       
-      var rafal = countCharacters(Zosia[i])/10
+      let rafal = Zosia[i].length/10;
       await timer(basia*1000*rafal); // then the created Promise can be awaited
     }
   }
