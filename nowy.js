@@ -19,7 +19,9 @@ document.getElementById('myfile').addEventListener('change', function() {
       document.getElementById('output2').innerHTML= "("+i+"/"+Zosia.length+" =  "+((i/Zosia.length)*100).toFixed(2)+" % )";
       // document.getElementById('output3').innerHTML= basia;
       // document.getElementById('output').value= Zosia[i];
-      await timer(basia*1000); // then the created Promise can be awaited
+      
+      var rafal = countCharacters(Zosia[i])/10
+      await timer(basia*1000*rafal); // then the created Promise can be awaited
     }
   }
   
