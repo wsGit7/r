@@ -15,12 +15,12 @@ document.getElementById('myfile').addEventListener('change', function() {
 
   async function load () { // We need to wrap the loop into an async function for this to work
     for (var i = anna; i < Zosia.length; i++) {
-      document.getElementById('output').innerHTML= Zosia[i].length;
+      document.getElementById('output').innerHTML= Zosia[i];
       document.getElementById('output2').innerHTML= "("+i+"/"+Zosia.length+" =  "+((i/Zosia.length)*100).toFixed(2)+" % )";
       // document.getElementById('output3').innerHTML= basia;
       // document.getElementById('output').value= Zosia[i];
       
-      let rafal = Zosia[i].length/10;
+      let rafal = Zosia[i].length/20;
       await timer(basia*1000*rafal); // then the created Promise can be awaited
     }
   }
