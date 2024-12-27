@@ -3,41 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.8">
-    
     <title>TEXT ANALYSER AI</title>
 </head>
-
 <body style="background-image: url('fotook.jpeg'); background-size:cover; text-align:center;max-width:75%;height:75%;">
     
-    <h5 id="andrzej" style="text-align: left;"></h5><h1><span style: <span style="color: #b83a1a">A</span><span style="color: #fc582a">N</span><span style="color: #ed7f11">A</span><span style="color: #d4a602">L</span><span style="color: #b3ca00">I</span><span style="color: #8ce60b">Z</span><span style="color: #64f820">A</span><span style="color: #3fff3f">T</span><span style="color: #20f864">O</span><span style="color: #0be68c">R</span>  <span style="color: #02a6d4">T</span><span style="color: #117fed">E</span><span style="color: #2a58fc">K</span><span style="color: #4b34fe">S</span><span style="color: #7218f3">T</span><span style="color: #9a06de">U</span></h1>
-   
-      <center><h3 style="font-size: 200%;background:linear-gradient(blue,yellow); width:fit-content; text-align: justify; border-radius: 80%;padding-left: 10%; padding-right: 10%;"  >Gambetta AI &#169</h3></center>
+    <h5 id="andrzej" style="text-align: left;"></h5>
+    <h1><span style="color: #b83a1a">A</span><span style="color: #fc582a">N</span><span style="color: #ed7f11">A</span><span style="color: #d4a602">L</span><span style="color: #b3ca00">I</span><span style="color: #8ce60b">Z</span><span style="color: #64f820">A</span><span style="color: #3fff3f">T</span><span style="color: #20f864">O</span><span style="color: #0be68c">R</span> <span style="color: #02a6d4">T</span><span style="color: #117fed">E</span><span style="color: #2a58fc">K</span><span style="color: #4b34fe">S</span><span style="color: #7218f3">T</span><span style="color: #9a06de">U</span></h1>
+    
+    <center><h3 style="font-size: 200%;background:linear-gradient(blue,yellow); width:fit-content; text-align: justify; border-radius: 80%;padding-left: 10%; padding-right: 10%;">Gambetta AI &#169</h3></center>
     
     <p style="background-color: rgb(130, 101, 49);"></p>    
-   
+
     <style>
-    p {color:red; font-size: 200%;}
+        p {color:red; font-size: 200%;}
     </style>
     
-    <!-- <input type="file" id="myFile" style="background-color: #fc582a; font-stretch: expanded;font-size: larger;"> -->
+    <input type="file" id="myfile" style="background-color: #2a58fc;">
+    <input type="number" id="msg" style="background-color: #fc582a; border-style:double; font-weight: bold;">
+    <input type="number" id="msg2" style="background-color: #2afc51; border-style:double; font-weight: bold;"><br>
+    <center><div id="output2" style="font-size: 100%; margin: 10px; font-weight: bold; width: fit-content; background-color: #ed2011;"></div></center>
+    <div id="output" style="font-size: 350%; font-weight: bold; background-color: #eddb11;"></div>
 
-    <input type="file"  id="myfile" style="background-color: #2a58fc;">
-    <input type="number" id="msg" style="background-color: #fc582a; border-style:double;font-weight: bold;">
-    <input type="number" id="msg2" style="background-color: #2afc51; border-style:double;font-weight: bold;"><br>
-    <center><div id="output2" style="font-size: 100%;margin: 10 px; font-weight: bold;width: fit-content;background-color: #ed2011;"></div></center>
-    <div id="output" style="font-size: 350%;font-weight: bold;background-color: #eddb11;"></div>
-    <!-- <div id="output3" style="font-size: 100%;font-weight: bold;width: fit-content;background-color: #ed2011;"></div> -->
- <!-- ----------------- -->
+    <button id="stopButton">Stop</button>
+    <button id="resumeButton" disabled>Resume</button>
 
-<div id="marcin"></div>
+    <div id="marcin"></div>
 
-<!-- <div id="output"  rows="10" cols="50"></div> -->
-<!-- <textarea id="output" style="background-color: rgb(88, 143, 233); font-size:250% ;"; rows="20" cols="50"></textarea> -->
-<!-- ----------------------------- -->
+    <script src="nowy.js"></script>
 
+    <script>
+        let fetchController;
 
+        function fetchData() {
+            fetchController = new AbortController();
+            const signal = fetchController.signal;
 
-<script src="nowy.js"></script>
+            fetch('your-api-url-here', { signal })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Process your data here
+                    document.getElementById('output').innerHTML = JSON.stringify(data);
+                })
+                .catch(error => {
+                    if (error.name !== 'AbortError') {
+                        console.error('Error:', error);
+                    }
+                });
+        }
 
+        document.getElementById('stopButton').addEventListener('click', () => {
+            if (fetchController) {
+                fetchController.abort();
+                document.getElementById('stopButton').disabled = true;
+                document.getElementById('resumeButton').disabled = false;
+            }
+        });
+
+        document.getElementById('resumeButton').addEventListener('click', () => {
+            fetchData();
+            document.getElementById('stopButton').disabled = false;
+            document.getElementById('resumeButton').disabled = true;
+        });
+
+        fetchData();
+    </script>
 </body>
 </html>
