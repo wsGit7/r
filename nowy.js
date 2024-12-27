@@ -1,7 +1,6 @@
 document.getElementById('myfile').addEventListener('change', function() {
   var GetFile = new FileReader();
   let isPaused = false;
-  let isStopped = false;
   let currentIndex = 0;
 
   GetFile.onload = function() {
@@ -13,15 +12,16 @@ document.getElementById('myfile').addEventListener('change', function() {
     const timer = ms => new Promise(res => setTimeout(res, ms));
 
     async function load() {
-      for (; currentIndex < Zosia.length; currentIndex++) {
-        if (isStopped) break;
-        while (isPaused) {
+      while (currentIndex < Zosia.length) {
+        if (isPaused) {
           await timer(100);
+          continue;
         }
         document.getElementById('output').innerHTML = Zosia[currentIndex];
         document.getElementById('output2').innerHTML = `(${currentIndex}/${Zosia.length} = ${(currentIndex / Zosia.length * 100).toFixed(2)} % )`;
         let rafal = Zosia[currentIndex].length / 20;
         await timer(basia * 1000 * rafal);
+        currentIndex++;
       }
     }
 
@@ -35,17 +35,6 @@ document.getElementById('myfile').addEventListener('change', function() {
       isPaused = false;
       document.getElementById('stopButton').disabled = false;
       document.getElementById('resumeButton').disabled = true;
-      load(); // Resume the loading process
-    });
-
-    document.getElementById('resetButton').addEventListener('click', () => {
-      isStopped = true;
-      isPaused = false;
-      currentIndex = parseInt(anna, 10); // Reset to the starting index
-      document.getElementById('stopButton').disabled = false;
-      document.getElementById('resumeButton').disabled = true;
-      document.getElementById('resetButton').disabled = false;
-      load(); // Restart the loading process
     });
 
     load();
